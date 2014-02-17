@@ -1,5 +1,9 @@
 package org.nikkii.embedhttp.impl;
 
+import org.nikkii.embedhttp.HttpServer;
+import org.nikkii.embedhttp.util.HttpUtil;
+import org.nikkii.embedhttp.util.MultipartReader;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -17,10 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
-
-import org.nikkii.embedhttp.HttpServer;
-import org.nikkii.embedhttp.util.HttpUtil;
-import org.nikkii.embedhttp.util.MultipartReader;
 
 /**
  * Represents an Http Session
@@ -351,6 +351,7 @@ public class HttpSession implements Runnable {
 	 *             If an error occurred while sending
 	 */
 	public void sendResponse(HttpResponse resp, boolean close) throws IOException {
+
 		StringBuilder header = new StringBuilder();
 		header.append("HTTP/1.1").append(' ').append(resp.getStatus().getCode()).append(' ').append(resp.getStatus());
 		header.append('\r').append('\n');
@@ -437,4 +438,20 @@ public class HttpSession implements Runnable {
 	public InetSocketAddress getRemoteAddress() {
 		return (InetSocketAddress) socket.getRemoteSocketAddress();
 	}
+
+    public HttpServer getServer() {
+        return server;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public InputStream getInput() {
+        return input;
+    }
+
+    public OutputStream getOutput() {
+        return output;
+    }
 }

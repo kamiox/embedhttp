@@ -1,5 +1,12 @@
 package org.nikkii.embedhttp;
 
+import org.nikkii.embedhttp.handler.HttpRequestHandler;
+import org.nikkii.embedhttp.impl.HttpCapability;
+import org.nikkii.embedhttp.impl.HttpRequest;
+import org.nikkii.embedhttp.impl.HttpResponse;
+import org.nikkii.embedhttp.impl.HttpSession;
+import org.nikkii.embedhttp.impl.HttpStatus;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -10,13 +17,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.nikkii.embedhttp.handler.HttpRequestHandler;
-import org.nikkii.embedhttp.impl.HttpCapability;
-import org.nikkii.embedhttp.impl.HttpRequest;
-import org.nikkii.embedhttp.impl.HttpResponse;
-import org.nikkii.embedhttp.impl.HttpSession;
-import org.nikkii.embedhttp.impl.HttpStatus;
-
 /**
  * The main HttpServer class
  * 
@@ -25,7 +25,7 @@ import org.nikkii.embedhttp.impl.HttpStatus;
  */
 public class HttpServer implements Runnable {
 
-	/**
+    /**
 	 * The request service
 	 */
 	private ExecutorService service = Executors.newCachedThreadPool();
@@ -48,7 +48,7 @@ public class HttpServer implements Runnable {
 		}
 	};
 
-	private boolean running;
+    private boolean running;
 
 	/**
 	 * Construct a new HttpServer
@@ -199,4 +199,16 @@ public class HttpServer implements Runnable {
 	public boolean hasCapability(HttpCapability capability) {
 		return capabilities.get(capability.ordinal());
 	}
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public ExecutorService getService() {
+        return service;
+    }
+
+    public ServerSocket getSocket() {
+        return socket;
+    }
 }
